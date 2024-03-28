@@ -23,10 +23,10 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
-    - name: Setup NuGet.exe for use with actions
-      uses: NuGet/setup-nuget@v2.0.0
-      with:
-       nuget-version: # optional, default is latest
-       nuget-api-key: ${{ secrets.GITHUB_TOKEN }}
-       nuget-api-key-source: https://nuget.pkg.github.com/bricefourie/index.json
+      run: dotnet build --no-restore --configuration Release
+    - name: Pack
+      run: dotnet pack --configuration Release
+    - name: Add nuget source
+      run: dotnet nuget add source --username bricefourie --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/bricefourie/index.json"
+    - name: Publish Package
+      run: dotnet nuget push "bin/Release/ConvertHero.Core.1.0.0.nupkg"  --api-key ${{ secrets.MY_GITHUB_PAT }} --source "github"
