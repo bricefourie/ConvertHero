@@ -29,4 +29,4 @@ jobs:
     - name: Add nuget source
       run: dotnet nuget add source --username bricefourie --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/bricefourie/index.json"
     - name: Publish Package
-      run: dotnet nuget push "bin/Release/ConvertHero.Core.1.0.0.nupkg"  --api-key ${{ secrets.MY_GITHUB_PAT }} --source "github"
+      run: dotnet nuget push "ConvertHeroLibrary/bin/Release/ConvertHero.Core.1.0.0.nupkg"  --api-key ${{ secrets.MY_GITHUB_PAT }} --source "github"
